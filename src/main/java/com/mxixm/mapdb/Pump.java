@@ -17,6 +17,7 @@ package com.mxixm.mapdb;
 
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
 import java.util.*;
 
 /**
@@ -85,7 +86,7 @@ public final class Pump {
                     Arrays.sort(presort,comparator);
 
                     //flush presort into temporary file
-                    File f = File.createTempFile("com/mxixm/mapdb","sort");
+                    File f = Files.createTempFile("com/mxixm/mapdb","sort").toFile();
                     f.deleteOnExit();
                     presortFiles.add(f);
                     DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(f)));

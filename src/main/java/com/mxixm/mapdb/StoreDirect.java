@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOError;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.concurrent.locks.Lock;
@@ -810,7 +811,7 @@ public class StoreDirect extends Store {
         lockAllWrite();
         try{
             File f1del = null;
-            final File compactedFile = new File((indexFile!=null?indexFile:(f1del=File.createTempFile("com/mxixm/mapdb","compact")))+".compact");
+            final File compactedFile = new File((indexFile!=null?indexFile:(f1del=Files.createTempFile("com/mxixm/mapdb","compact").toFile()))+".compact");
             boolean asyncWriteEnabled = index instanceof Volume.ByteBufferVol && ((Volume.ByteBufferVol)index).asyncWriteEnabled;
             Volume.Factory fab = Volume.fileFactory(compactedFile,rafMode,false,sizeLimit,  CC.VOLUME_CHUNK_SHIFT,0,
                     new File(compactedFile.getPath() + StoreDirect.DATA_FILE_EXT),
